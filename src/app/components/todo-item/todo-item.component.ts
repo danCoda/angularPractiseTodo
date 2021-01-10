@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core'; // Input, see info @35.58.
+// Input, see info @35.58.
+// EventEmitter, Output. See info @1.02.14.
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core'; 
 import {TodoService} from "../../services/todo.service";
 
 import { Todo } from "../../models/Todos";
@@ -10,6 +12,7 @@ import { Todo } from "../../models/Todos";
 })
 export class TodoItemComponent implements OnInit {
   @Input() todo: Todo;
+  @Output() deleteTodo: EventEmitter<Todo> = new EventEmitter();
 
   constructor(private todoService:TodoService) { }
 
@@ -34,7 +37,7 @@ export class TodoItemComponent implements OnInit {
     })
   }
 
-  onDelete(todo:Todo) {
-    console.log("delete");
+  onDelete(todo:Todo) { // See explaination @1.04.32.
+    this.deleteTodo.emit(todo);
   }
 }
